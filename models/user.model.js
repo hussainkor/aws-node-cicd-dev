@@ -16,7 +16,16 @@ const userSchema = mongoose.Schema({
     phoneNumber: {
         type: Number,
         required: true
-    }
+    },
+    coverImageURL: {
+        type: String,
+        required: false,
+    },
+    role: {
+        type: String,
+        enum: ["USER", "ADMIN"],
+        default: "USER",
+    },
 })
 
 const userModel = mongoose.model("users", userSchema)

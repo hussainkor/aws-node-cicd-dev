@@ -12,7 +12,7 @@ export const userList = async (req, res) => {
 
 export const userCreate = async (req, res) => {
     try {
-        const { name, email, phoneNumber } = req.body
+        const { name, email, phoneNumber, role } = req.body
 
         if (!name || !email || !phoneNumber) return res.status(400).json({ status: "failed", message: "all the fields are required" })
 
@@ -21,7 +21,9 @@ export const userCreate = async (req, res) => {
         const user = {
             name: name,
             email: email,
-            phoneNumber, phoneNumber
+            role: role || "USER",
+            phoneNumber, phoneNumber,
+            coverImageURL: `/uploads/${req.file.filename}`,
         }
         await userModel.insertOne(user)
         return res.status(200).json({ status: "success", message: "User created", data: user })
